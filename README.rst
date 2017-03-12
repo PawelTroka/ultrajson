@@ -13,14 +13,18 @@ For a more painless day to day C/C++ JSON decoder experience please checkout ujs
 | http://github.com/esnme/ultramemcache
 | http://github.com/esnme/ultramysql
 
-To install it just run Pip as usual::
+To install it just run Pip as usual:
+
+.. code-block:: sh
 
     $ pip install ujson
 
 ============
 Usage
 ============
-May be used as a drop in replacement for most other JSON parsers for Python::
+May be used as a drop in replacement for most other JSON parsers for Python:
+
+.. code-block:: python
 
     >>> import ujson
     >>> ujson.dumps([{"key": "value"}, 81, True])
@@ -33,14 +37,18 @@ Encoder options
 ~~~~~~~~~~~~~~~
 encode_html_chars
 -----------------
-Used to enable special encoding of "unsafe" HTML characters into safer Unicode sequences. Default is false::
+Used to enable special encoding of "unsafe" HTML characters into safer Unicode sequences. Default is ``False``:
+
+.. code-block:: python
 
     >>> ujson.dumps("<script>John&Doe", encode_html_chars=True)
     '"\\u003cscript\\u003eJohn\\u0026Doe"'
 
 ensure_ascii
 -------------
-Limits output to ASCII and escapes all extended characters above 127. Default is true. If your end format supports UTF-8 setting this option to false is highly recommended to save space::
+Limits output to ASCII and escapes all extended characters above 127. Default is true. If your end format supports UTF-8 setting this option to false is highly recommended to save space:
+
+.. code-block:: python
 
     >>> ujson.dumps(u"\xe5\xe4\xf6")
     '"\\u00e5\\u00e4\\u00f6"'
@@ -62,7 +70,9 @@ Controls how many decimals to encode for double or decimal values. Default is 9:
 
 escape_forward_slashes
 ----------------------
-Controls whether forward slashes (``/``) are escaped. Default is True::
+Controls whether forward slashes (``/``) are escaped. Default is ``True``:
+
+.. code-block:: python
 
     >>> ujson.dumps("http://esn.me")
     '"http:\/\/esn.me"'
@@ -70,8 +80,10 @@ Controls whether forward slashes (``/``) are escaped. Default is True::
     '"http://esn.me"'
 
 indent
-----------------------
-Controls whether indention ("pretty output") is enabled. Default is 0 (disabled)::
+------
+Controls whether indention ("pretty output") is enabled. Default is ``0`` (disabled):
+
+.. code-block:: python
 
     >>> ujson.dumps({"foo": "bar"})
     '{"foo":"bar"}'
