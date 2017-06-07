@@ -480,8 +480,12 @@ static int Dict_iterNext(JSOBJ obj, JSONTypeContext *tc)
     return 0;
   }
 
-  if (!(GET_TC(tc)->itemValue = PyObject_GetItem(GET_TC(tc)->dictObj, GET_TC(tc)->itemName)))
-  {
+  if (GET_TC(tc)->itemValue) {
+    Py_DECREF(GET_TC(tc)->itemValue);
+    GET_TC(tc)->itemValue = NULL;
+  }
+
+  if (!(GET_TC(tc)->itemValue = PyObject_GetItem(GET_TC(tc)->dictObj, GET_TC(tc)->itemName))) {
     PRINTMARK();
     return 0;
   }
@@ -516,10 +520,13 @@ static int Dict_iterNext(JSOBJ obj, JSONTypeContext *tc)
 
 static void Dict_iterEnd(JSOBJ obj, JSONTypeContext *tc)
 {
-  if (GET_TC(tc)->itemName)
-  {
-    Py_DECREF(GET_TC(tc)->itemName);
-    GET_TC(tc)->itemName = NULL;
+  if (GET_TC(tc)->itemName) {
+      Py_DECREF(GET_TC(tc)->itemName);
+      GET_TC(tc)->itemName = NULL;
+  }
+  if (GET_TC(tc)->itemValue) {
+    Py_DECREF(GET_TC(tc)->itemValue);
+    GET_TC(tc)->itemValue = NULL;
   }
   Py_CLEAR(GET_TC(tc)->iterator);
   Py_DECREF(GET_TC(tc)->dictObj);
