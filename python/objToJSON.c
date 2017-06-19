@@ -466,9 +466,7 @@ static char *List_iterGetName(JSOBJ obj, JSONTypeContext *tc, size_t *outLen)
 
 static int Dict_iterNext(JSOBJ obj, JSONTypeContext *tc)
 {
-#if PY_MAJOR_VERSION >= 3
   PyObject* itemNameTmp;
-#endif
 
   if (GET_TC(tc)->itemName)
   {
@@ -495,7 +493,7 @@ static int Dict_iterNext(JSOBJ obj, JSONTypeContext *tc)
   if (PyUnicode_Check(GET_TC(tc)->itemName))
   {
     itemNameTmp = GET_TC(tc)->itemName;
-    GET_TC(tc)->itemName = PyUnicode_AsUTF8String (GET_TC(tc)->itemName);
+    GET_TC(tc)->itemName = PyUnicode_AsUTF8String (itemNameTmp);
     Py_DECREF(itemNameTmp);
   }
   else
@@ -503,18 +501,17 @@ static int Dict_iterNext(JSOBJ obj, JSONTypeContext *tc)
   {
     if (UNLIKELY(GET_TC(tc)->itemName == Py_None))
     {
-      itemNameTmp = GET_TC(tc)->itemName;
+      Py_DECREF(GET_TC(tc)->itemName);
       GET_TC(tc)->itemName = PyString_FromString("null");
-      Py_DECREF(itemNameTmp);
       return 1;
     }
 
     itemNameTmp = GET_TC(tc)->itemName;
-    GET_TC(tc)->itemName = PyObject_Str(GET_TC(tc)->itemName);
+    GET_TC(tc)->itemName = PyObject_Str(itemNameTmp);
     Py_DECREF(itemNameTmp);
 #if PY_MAJOR_VERSION >= 3
     itemNameTmp = GET_TC(tc)->itemName;
-    GET_TC(tc)->itemName = PyUnicode_AsUTF8String (GET_TC(tc)->itemName);
+    GET_TC(tc)->itemName = PyUnicode_AsUTF8String (itemNameTmp);
     Py_DECREF(itemNameTmp);
 #endif
   }
