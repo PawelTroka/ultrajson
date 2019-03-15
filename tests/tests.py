@@ -380,6 +380,14 @@ class UltraJSONTests(unittest.TestCase):
         self.assertEqual(json_dict.get('b'),start_timestamp)
         self.assertEqual(json_dict.get('c'),start_timestamp)
 
+    def test_datetimeWithJsonMethod(self):
+        class JsonDatetime(datetime.datetime):
+            def __json__(self):
+                return '"%s"' % self.isoformat()
+        json_dt = JsonDatetime(2019, 3, 15, 0, 0, 0)
+        json_string = ujson.encode(json_dt)
+        self.assertEqual('"2019-03-15T00:00:00"', json_string)
+
     def test_encodeToUTF8(self):
         input = b"\xe6\x97\xa5\xd1\x88"
         if six.PY3:
