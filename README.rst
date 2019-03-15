@@ -1,7 +1,7 @@
 UltraJSON-x
 =============
-.. image:: https://travis-ci.org/PawelTroka/ultrajson.svg?branch=master
-    :target: https://travis-ci.org/esnme/ultrajson
+.. image:: https://travis-ci.org/PawelTroka/ultrajson-x.svg?branch=master
+    :target: https://travis-ci.org/PawelTroka/ultrajson-x
 
 UltraJSON-x is an ultra fast JSON encoder and decoder written in pure C with bindings for Python 2.5+ and 3.
 
