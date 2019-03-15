@@ -19,6 +19,11 @@ Programming Language :: Python :: 2.6
 Programming Language :: Python :: 2.7
 Programming Language :: Python :: 3
 Programming Language :: Python :: 3.2
+Programming Language :: Python :: 3.3
+Programming Language :: Python :: 3.4
+Programming Language :: Python :: 3.5
+Programming Language :: Python :: 3.6
+Programming Language :: Python :: 3.7
 """.splitlines()))
 
 module1 = Extension('ujson',
@@ -56,7 +61,7 @@ setup (name = 'ujson',
        ext_modules = [module1],
        author="Jonas Tarnstrom",
        author_email="jonas.tarnstrom@esn.me",
-       download_url="http://github.com/esnme/ultrajson",
+       download_url="http://github.com/PawelTroka/ultrajson-x",
        license="BSD License",
        platforms=['any'],      
        url="http://www.esn.me",

@@ -1,9 +1,9 @@
-UltraJSON
+UltraJSON-x
 =============
-.. image:: https://travis-ci.org/esnme/ultrajson.svg?branch=master
+.. image:: https://travis-ci.org/PawelTroka/ultrajson.svg?branch=master
     :target: https://travis-ci.org/esnme/ultrajson
 
-UltraJSON is an ultra fast JSON encoder and decoder written in pure C with bindings for Python 2.5+ and 3.
+UltraJSON-x is an ultra fast JSON encoder and decoder written in pure C with bindings for Python 2.5+ and 3.
 
 For a more painless day to day C/C++ JSON decoder experience please checkout ujson4c_, based on UltraJSON.
 
@@ -17,7 +17,7 @@ To install it just run Pip as usual:
 
 .. code-block:: sh
 
-    $ pip install ujson
+    $ pip install ultrajson-x
 
 ============
 Usage
@@ -107,7 +107,7 @@ Set to enable usage of higher precision (strtod) function when decoding string t
 ============		
 Benchmarks		
 ============		
-*UltraJSON* calls/sec compared to three other popular JSON parsers with performance gain specified below each.
+*UltraJSON-x* calls/sec compared to three other popular JSON parsers with performance gain specified below each.
 
 ~~~~~~~~~~~~~
 Test machine:
