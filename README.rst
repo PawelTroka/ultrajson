@@ -17,7 +17,7 @@ To install it just run Pip as usual:
 
 .. code-block:: sh
 
-    $ pip install ultrajson-x
+    $ pip install ujson-x
 
 ============
 Usage
