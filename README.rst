@@ -1,9 +1,9 @@
-UltraJSON
+UltraJSON-x-legacy
 =============
-.. image:: https://travis-ci.org/esnme/ultrajson.svg?branch=master
-    :target: https://travis-ci.org/esnme/ultrajson
+.. image:: https://travis-ci.org/PawelTroka/ultrajson-x.svg?branch=legacy
+    :target: https://travis-ci.org/PawelTroka/ultrajson-x?branch=legacy
 
-UltraJSON is an ultra fast JSON encoder and decoder written in pure C with bindings for Python 2.5+ and 3.
+UltraJSON-x-legacy is an ultra fast JSON encoder and decoder written in pure C with bindings for Python 2.5+ and 3.
 
 For a more painless day to day C/C++ JSON decoder experience please checkout ujson4c_, based on UltraJSON.
 
@@ -15,7 +15,7 @@ For a more painless day to day C/C++ JSON decoder experience please checkout ujs
 
 To install it just run Pip as usual::
 
-    $ pip install ujson
+    $ pip install ujson-x-legacy
 
 ============
 Usage

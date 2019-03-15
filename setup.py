@@ -20,6 +20,10 @@ Programming Language :: Python :: 2.6
 Programming Language :: Python :: 2.7
 Programming Language :: Python :: 3
 Programming Language :: Python :: 3.2
+Programming Language :: Python :: 3.3
+Programming Language :: Python :: 3.4
+Programming Language :: Python :: 3.5
+Programming Language :: Python :: 3.6
 """.splitlines()))
 
 try:
@@ -55,16 +59,16 @@ try:
 finally:
     f.close()    
     
-setup (name = 'ujson',
+setup (name = 'ujson-x-legacy',
        version = get_version(),
        description = "Ultra fast JSON encoder and decoder for Python",
        long_description = README,
        ext_modules = [module1],
-       author="Jonas Tarnstrom",
-       author_email="jonas.tarnstrom@esn.me",
-       download_url="http://github.com/esnme/ultrajson",
+       author="Jonas Tarnstrom, Pawel Troka",
+       author_email="jonas.tarnstrom@esn.me, pawel.troka@outlook.com",
+       download_url="http://github.com/PawelTroka/ultrajson-x",
        license="BSD License",
        platforms=['any'],      
-       url="http://www.esn.me",
+       url="http://github.com/PawelTroka/ultrajson-x",
        classifiers=CLASSIFIERS,
        )
