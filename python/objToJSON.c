@@ -765,6 +765,65 @@ static void Object_beginTypeContext (JSOBJ _obj, JSONTypeContext *tc, JSONObject
     return;
   }
   else
+  if (UNLIKELY(PyObject_HasAttrString(obj, "__json__")))
+  {
+    PyObject* toJSONFunc = PyObject_GetAttrString(obj, "__json__");
+    PyObject* tuple = PyTuple_New(0);
+    PyObject* toJSONResult = PyObject_Call(toJSONFunc, tuple, NULL);
+    Py_DECREF(tuple);
+    Py_DECREF(toJSONFunc);
+
+    if (toJSONResult == NULL)
+    {
+      goto INVALID;
+    }
+
+    if (PyErr_Occurred())
+    {
+      Py_DECREF(toJSONResult);
+      goto INVALID;
+    }
+
+    if (!PyString_Check(toJSONResult) && !PyUnicode_Check(toJSONResult))
+    {
+      Py_DECREF(toJSONResult);
+      PyErr_Format (PyExc_TypeError, "expected string");
+      goto INVALID;
+    }
+
+    PRINTMARK();
+    pc->PyTypeToJSON = PyRawJSONToUTF8;
+    tc->type = JT_RAW;
+    GET_TC(tc)->rawJSONValue = toJSONResult;
+    return;
+  }
+  else
+  if (UNLIKELY(PyObject_HasAttrString(obj, "toDict")))
+  {
+    PyObject* toDictFunc = PyObject_GetAttrString(obj, "toDict");
+    PyObject* tuple = PyTuple_New(0);
+    PyObject* toDictResult = PyObject_Call(toDictFunc, tuple, NULL);
+    Py_DECREF(tuple);
+    Py_DECREF(toDictFunc);
+
+    if (toDictResult == NULL)
+    {
+      goto INVALID;
+    }
+
+    if (!PyDict_Check(toDictResult))
+    {
+      Py_DECREF(toDictResult);
+      tc->type = JT_NULL;
+      return;
+    }
+
+    PRINTMARK();
+    tc->type = JT_OBJECT;
+    SetupDictIter(toDictResult, pc, enc);
+    return;
+  }
+  else
   if (PyDateTime_Check(obj))
   {
     PRINTMARK();
@@ -838,64 +897,6 @@ ISITERABLE:
   }
   */
 
-  if (UNLIKELY(PyObject_HasAttrString(obj, "toDict")))
-  {
-    PyObject* toDictFunc = PyObject_GetAttrString(obj, "toDict");
-    PyObject* tuple = PyTuple_New(0);
-    PyObject* toDictResult = PyObject_Call(toDictFunc, tuple, NULL);
-    Py_DECREF(tuple);
-    Py_DECREF(toDictFunc);
-
-    if (toDictResult == NULL)
-    {
-      goto INVALID;
-    }
-
-    if (!PyDict_Check(toDictResult))
-    {
-      Py_DECREF(toDictResult);
-      tc->type = JT_NULL;
-      return;
-    }
-
-    PRINTMARK();
-    tc->type = JT_OBJECT;
-    SetupDictIter(toDictResult, pc, enc);
-    return;
-  }
-  else
-  if (UNLIKELY(PyObject_HasAttrString(obj, "__json__")))
-  {
-    PyObject* toJSONFunc = PyObject_GetAttrString(obj, "__json__");
-    PyObject* tuple = PyTuple_New(0);
-    PyObject* toJSONResult = PyObject_Call(toJSONFunc, tuple, NULL);
-    Py_DECREF(tuple);
-    Py_DECREF(toJSONFunc);
-
-    if (toJSONResult == NULL)
-    {
-      goto INVALID;
-    }
-
-    if (PyErr_Occurred())
-    {
-      Py_DECREF(toJSONResult);
-      goto INVALID;
-    }
-
-    if (!PyString_Check(toJSONResult) && !PyUnicode_Check(toJSONResult))
-    {
-      Py_DECREF(toJSONResult);
-      PyErr_Format (PyExc_TypeError, "expected string");
-      goto INVALID;
-    }
-
-    PRINTMARK();
-    pc->PyTypeToJSON = PyRawJSONToUTF8;
-    tc->type = JT_RAW;
-    GET_TC(tc)->rawJSONValue = toJSONResult;
-    return;
-  }
 
   PRINTMARK();
   PyErr_Clear();
